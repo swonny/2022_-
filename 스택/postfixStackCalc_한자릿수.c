@@ -1,4 +1,4 @@
-/* 후위법 계산기 */
+/* 후위법 계산기 _ 한 자릿수 버전 */
 #include <stdio.h>
 #define MAX 100
 

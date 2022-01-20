@@ -1,5 +1,7 @@
-/* 후위법 계산기 */
+/* 후위법 계산기 _ 두 자릿수 이상 버전 */
+
 #include <stdio.h>
+#include <string.h>
 #define MAX 100
 
 char stack[MAX];
@@ -57,6 +59,7 @@ void compare_priority(char t, char postfix[], int *j)
         }
         if((temp=pop()) != '(') {
             postfix[(*j)++] = temp;
+            postfix[(*j)++] = ' '; // 공백추가
         }
     }
     if(t == ')') { // '('를 만나면 pop을 하기 전 while문을 빠져나오기 때문에 아직 stack에 '('이 남아있는 상황이다.
@@ -67,7 +70,7 @@ void compare_priority(char t, char postfix[], int *j)
 }
 
 /* 중위표기법 -> 후위표기법 변환 */
-char *infix_to_postfix(char infix[])
+void infix_to_postfix(char infix[], char changedPostfix[])
 {
     int i = 0; // 중위표기법 배열 인덱스
     int j = 0; // 후위표기법 배열 인덱스
@@ -76,98 +79,108 @@ char *infix_to_postfix(char infix[])
     char *result; // return 값
     while(infix[i] != '\0') {
         if(infix[i] > '0' && infix[i] < '9') {
-            postfix[j++] = infix[i++];
+            do {
+                postfix[j++] = infix[i++];
+            } while(infix[i] > '0' && infix[i] < '9');
+            postfix[j++] = ' '; // 공백 추가
         } else {
-            postfix[j++] = ' ';
-            compare_priority(infix[i],postfix, &j);
+            compare_priority(infix[i], postfix, &j);
             i++;
         }
     }
     do {
-        postfix[j++] = ' ';
         postfix[j++] = pop();
+        postfix[j++] = ' ';
     } while(top != -1);
-    result = postfix;
-
-    return result;;
+    postfix[j] = '\0';
+    strcpy(changedPostfix, postfix);
 }
 
-int str_to_int(void)
+int str_to_int(char temp[])
 {
-    int i = 0;
     int t = 1;
     int result = 0;
-    char temp;
-    pop(); // 공백 버리는 용도
-    while(stack[top-1] != ' ') { // 정수형으로 변환 후 배열에 저장
-        if(top == -1) {
-            break;
-        }
-        result += (pop() - '0') * t;
+    for(int i = 0; temp[i] != '\0'; i ++) {
+        result += (temp[i]-'0') * t;
         t *= 10;
     }
     return result;
 }
 
-int calculate_postfix(char operator)
+void num_token(char temp[]) // 스택에서 숫자 최소단위로 잘라주는 함수
 {
-    int i = 0;
-    int t = 1;
-    int result1 = 0; // 첫 번째 pop()을 정수형으로 변환한 결과
-    int result2 = 0; // 두 번째 pop()을 정수형으로 변환한 결과
-    /* 중복되는 코드 */
-    result1 = str_to_int();
-    result2 = str_to_int();
+    int i=0;
+    pop(); // 공백을 버리기 위한 용도
+    while(stack[top-1] != ' ' &&  top > 0) {
+        temp[i++] = pop();
+        // printf("temp[%d] :  %c\n",  i-1, temp[i-1]);
+    }
+    temp[i] = '\0';
+}
 
-    printf("result1 : %d\nresult2 : %d\n", result1, result2);
-    /* 중복되는 코드 */
+int calculate_postfix(char operator) // pop하여 문자열 str_to_temp에 전달, 원래 숫자가 뒤집힌 모양의 문자열 전달
+{
+    char strNum1[MAX]; // 문자열로 저장된 숫자 1
+    char strNum2[MAX]; // 문자열로 저장되 숫자 2
+    char t;
+    num_token(strNum1); // reversed num (str)
+    num_token(strNum2); // reversed num (str)
+
+    int num1 = str_to_int(strNum1);
+    int num2 = str_to_int(strNum2);
     switch(operator){
         case '*':
-            return (result1 * result2);
+            return (num1 * num2);
         case '+':
-            return (result1 + result2);
+            return (num1 + num2);
         case '-':
-            return (result2 - result1);
+            return (num2 - num1);
         case '/':
-            return (result2 / result1);
+            return (num2 / num1);
     }
     return 0;
 }
-
 
 /* 후위표기법 계산 */
 int get_postfix_result(char postfix[])
 {
     int i = 0;
     int result = 0;
+    top ++;
     while(postfix[i] != '\0') {
         if(postfix[i] >= '0' && postfix[i] <= '9') { // 숫자라면 push()
-            while(postfix[i] != ' ') {
+            do { // 연산자가나오기전까지 숫자 push
                 push(postfix[i++]);
-            }
-            push(postfix[i++]); // 공백 push
+            } while (postfix[i] >= '0' && postfix[i] <= '9');
+            push(postfix[i++]); // 공백 추가
         } else { // 연산자라면 pop()*2 -> 계산 후 push()
+            if(postfix[i] == ' ' ) {
+                if(postfix[i+1] == '\0') { // 없어도 같은 결과 나옴
+                    break;
+                }
+                i++;
+                continue;
+            }
             result = calculate_postfix(postfix[i++]);
-            printf("result : %d\n", result);
             push(result+'0');
             push(' ');
         }
     }
-    postfix[i] = '\0';
+    pop(); // 공백 버리기
     return pop()-'0';
 }
 
 int main() {
     char infix[MAX];
-    char *postfix;
+    char postfix[MAX];
     int result=0;
     init_stack();
     printf("수식연산을 입력하세요 : ");
     scanf("%s", infix);
-
+    
     /* 후위표기법 변환 */
-    postfix = infix_to_postfix(infix); 
-    printf("\n%s\n", postfix);
+    infix_to_postfix(infix, postfix); 
+    printf("%s\n", postfix);
     
     /* 후위표기법 계산 */
     result = get_postfix_result(postfix);
