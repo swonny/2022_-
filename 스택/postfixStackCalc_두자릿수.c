@@ -78,10 +78,10 @@ void infix_to_postfix(char infix[], char changedPostfix[])
     char postfix[MAX];
     char *result; // return 값
     while(infix[i] != '\0') {
-        if(infix[i] > '0' && infix[i] < '9') {
+        if(infix[i] >= '0' && infix[i] <= '9') {
             do {
                 postfix[j++] = infix[i++];
-            } while(infix[i] > '0' && infix[i] < '9');
+            } while(infix[i] >= '0' && infix[i] <= '9');
             postfix[j++] = ' '; // 공백 추가
         } else {
             compare_priority(infix[i], postfix, &j);
