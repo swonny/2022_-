@@ -52,17 +52,9 @@ int infix_calc(char infix[])
     char t;
     char temp[MAX];
     for(i = 0; infix[i] != '\0'; i ++) { // 괄호, '*', '/' 를 먼저 계산하여 스택에 push
-        if(infix[i] >= '0' && infix[i] <= '9' || infix[i] == '+' || infix[i] == '-') {
+        if(infix[i] >= '0' && infix[i] <= '9' || infix[i] == '+' || infix[i] == '-' || infix[i] == '(') {
             push(infix[i]);
-        } else if(infix[i] == '(') {
-            push(infix[i++]);
-            for(; infix[i] != ')'; i ++) {
-                if(infix[i] >= '0' && infix[i] <= '9' || infix[i] == '+' || infix[i] == '-') {
-                    push(infix[i]);
-                } else {
-                    priority_calc_push(infix[i++], infix, &i);
-                }
-            }
+        } else if(infix[i] == ')') {
             while(stack[top-2] != '(') { // 중위표기법이니까 연산자는 stack[top-2]에 위치
                 for(int i = 2; i >= 0; i --) { // 반대로 넣기
                     temp[i] =  pop();
