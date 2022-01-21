@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-
 /*
     단순연결리스트 스택 구현
     # 고려해야하는 부분
@@ -8,6 +5,9 @@
     2. head == stack,  tail == top
     3. 더미노드 존재
 */
+
+#include <stdio.h>
+#include <stdlib.h>
 
 struct Node {
     int data;

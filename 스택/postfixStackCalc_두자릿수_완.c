@@ -1,4 +1,5 @@
 /* 후위법 계산기 _ 두 자릿수 이상 버전 */
+/* 완성 */
 
 #include <stdio.h>
 #include <string.h>

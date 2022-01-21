@@ -219,9 +219,8 @@ get_postfix_result() 변경
         ==> while문 돌릴 때 숫자인 경우를 postfix[i] > '0'  && postfix[i] < '9'로 설정했음.
 
     ==> infix_to_postfix() 함수에서 postfix배열을 지역함수로 선언했기 때문에 return되면서 배열을 읽을 수 없게됨. 따라서 배열을 포인터로 넘겨주어 넘겨받은 배열에 strcpy를 통해 복사해두면 해결.
-    ==> 계산한 값을 push()할 때는 +'0'을 해주고 return 시 -'0'을 안해줌 **(크게 보기)**
-
-
+    ==> 계산한 값을 push()할 때는 +'0'을 해주고 return 시 -'0'을 안해줌 ***(크게 보기)***
+    
   ### 🟡 스택 > postfixStackCalc_두자릿수.c, postfixStackCalc_한자릿수.c 기능 구현 완료
       - 🔴 (해결) 스택 > postfixStackCalc_두자릿수.c 숫자 10은 수정 필요
   ### postfix_edit.c : postfix_edit.c
