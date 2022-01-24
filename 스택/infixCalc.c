@@ -46,27 +46,56 @@ void priority_calc_push(char operator, char infix[], int *i)
     }
 }
 
+void sep_operator(char infix[], int *i)
+{
+    char temp[MAX];
+    char t;
+    if(infix[*i] >= '0' && infix[*i] <= '9' || infix[*i] == '+' || infix[*i] == '-' || infix[*i] == '(') {
+        push(infix[*i]);
+    } else if(infix[*i] == ')') {
+        while(stack[top-2] != '(') { // 중위표기법이니까 연산자는 stack[top-2]에 위치
+            for(int i = 2; i >= 0; i --) { // 반대로 넣기
+                temp[i] =  pop();
+            }
+            priority_calc_push(temp[1], temp, 0);
+        }
+        t = pop(); // '(' 제거 작업
+        pop(); // '(' 제거 작업
+        push(t); // '(' 제거 작업
+    } else { // '*', '/'
+        if(infix[(*i)+1] == '('){
+            (*i)++;
+            sep_operator(infix, i);
+        }
+        priority_calc_push(infix[(*i)++], infix, i);
+    }
+}
+
 int infix_calc(char infix[])
 {
     int i;
     char t;
     char temp[MAX];
     for(i = 0; infix[i] != '\0'; i ++) { // 괄호, '*', '/' 를 먼저 계산하여 스택에 push
-        if(infix[i] >= '0' && infix[i] <= '9' || infix[i] == '+' || infix[i] == '-' || infix[i] == '(') {
-            push(infix[i]);
-        } else if(infix[i] == ')') {
-            while(stack[top-2] != '(') { // 중위표기법이니까 연산자는 stack[top-2]에 위치
-                for(int i = 2; i >= 0; i --) { // 반대로 넣기
-                    temp[i] =  pop();
-                }
-                priority_calc_push(temp[1], temp, 0);
-            }
-            t = pop(); // '(' 제거 작업
-            pop(); // '(' 제거 작업
-            push(t); // '(' 제거 작업
-        } else {
-            priority_calc_push(infix[i++], infix, &i);
-        }
+        // if(infix[i] >= '0' && infix[i] <= '9' || infix[i] == '+' || infix[i] == '-' || infix[i] == '(') {
+        //     push(infix[i]);
+        // } else if(infix[i] == ')') {
+        //     while(stack[top-2] != '(') { // 중위표기법이니까 연산자는 stack[top-2]에 위치
+        //         for(int i = 2; i >= 0; i --) { // 반대로 넣기
+        //             temp[i] =  pop();
+        //         }
+        //         priority_calc_push(temp[1], temp, 0);
+        //     }
+        //     t = pop(); // '(' 제거 작업
+        //     pop(); // '(' 제거 작업
+        //     push(t); // '(' 제거 작업
+        // } else { // '*', '/'
+        //     if(infix[i+1] == '('){
+                
+        //     }
+        //     priority_calc_push(infix[i++], infix, &i);
+        // }
+        sep_operator(infix, &i);
     }
 
     char t1;
@@ -85,7 +114,6 @@ int infix_calc(char infix[])
     int result = 0;
     for(int i = 0; temp[i] != '\0'; i ++) {
         result += temp[i] - '0';
-
     }
     return result;
 }
