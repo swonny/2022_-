@@ -229,3 +229,7 @@ get_postfix_result() 변경
 
 # 22.01.21 (금)
   ## 스택 > infixCalc.c 
+
+# 22.01.25 (화)
+  ## 정렬 > bubbleSort.c  
+  - 기능 구현 완성
