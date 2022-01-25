@@ -10,7 +10,7 @@ struct Node {
 
 struct Node *create_node(struct Node **node)
 {
-    node = malloc(sizeof(struct Node));
+    (*node) = malloc(sizeof(struct Node));
     (*node)->left = NULL;
     (*node)->right = NULL;
     
@@ -28,7 +28,7 @@ int count_str(char postfix[])
 
 void tree_infix_calc(char postfix[], int count)
 {
-    if(postfix[count+1] >= '0' && postfix[count+1] <= '9') {
+    if(postfix[count+1] >= '0' && postfix[count+1] <= '9') { 
         
     }
 }
