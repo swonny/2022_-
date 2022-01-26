@@ -13,7 +13,7 @@ void insertion_sort(int arr[], int n)
                 arr[k+1] = temp;
             }
         }
-        for(int i = 0; i < 7; i ++) {
+        for(int i = 0; i < 10; i ++) {
             printf("%d ", arr[i]);
         }
         printf("\n");
@@ -21,7 +21,8 @@ void insertion_sort(int arr[], int n)
 }
 
 int main() {
-    int arr[] = {3,2,5,7,6,4,1};
+    // int arr[] = {3,2,5,7,6,4,1};
+    int arr[] = {3,2,5,7,6,4,1,10,8,9};
 
-    insertion_sort(arr, 7);
+    insertion_sort(arr, 10);
 }

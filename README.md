@@ -234,4 +234,6 @@ get_postfix_result() 변경
   ## 정렬 > bubbleSort.c  
   - 기능 구현 완성
 
-# 22.01.26 (금ㄴ)
+# 22.01.26 (금)
+  ## 정렬 > insertionSort.c
+  - 기능 구현 완성
