@@ -14,7 +14,7 @@ void swap(int arr[], int d, int s)
     arr[d] = temp;
 }
 
-void partition(int arr[], int left, int right)
+int partition(int arr[], int left, int right)
 {
     int pivot = left;
     left++;
@@ -26,7 +26,7 @@ void partition(int arr[], int left, int right)
             right --;
         }
         if(left < right) {
-            swap(arr, left, right);
+            swap(arr, left++, right--);
         }
         for(int i = 0; i < 5; i ++) {
             printf("%d ", arr[i]);
@@ -34,11 +34,19 @@ void partition(int arr[], int left, int right)
         printf("\n");
     }
     swap(arr, right, pivot);
+    
+    return right;
 }
 
-/*
-    2 3 1 4 5
-*/
+void recursive(int arr[], int left, int right)
+{
+
+    if((right - left) > 0 ) {
+        int pivot = partition(arr, left, right);
+        recursive(arr, 0, pivot-1);
+        recursive(arr, pivot+1, 5); // 수정 필요 - right를 어떤 걸로 잡을지
+    }
+}
 
 int main() {
     int arr[] = {2,3,1,4,5};
