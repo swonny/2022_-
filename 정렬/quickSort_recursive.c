@@ -18,7 +18,7 @@ int partition(int arr[], int left, int right)
 {
     int pivot = left;
     left++;
-    while(left < right) {
+    while(left <= right) {
         while(arr[left] < arr[pivot] && left <= right){
             left ++;
         }
@@ -28,12 +28,16 @@ int partition(int arr[], int left, int right)
         if(left < right) {
             swap(arr, left++, right--); // 수정 필요
         }
-        for(int i = 0; i < 8; i ++) {
+        for(int i = 0; i < 5; i ++) {
             printf("%d ", arr[i]);
         }
         printf("\n");
     }
     swap(arr, right, pivot);
+    for(int i = 0; i < 5; i ++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
     
     return right;
 }
@@ -50,12 +54,12 @@ void recursive(int arr[], int left, int right)
 }
 
 int main() {
-    int arr[] = {3,2,4,8,1,5,7};
-    // int arr[] = {0,3,2,4,5};
+    // int arr[] = {3,2,4,8,1,5,7};
+    int arr[] = {0,3,2,4,5};
 
     // partition(arr, 0, 4);
-    recursive(arr, 0, 7);
-    for(int i = 0; i < 8; i ++) {
+    recursive(arr, 0, 4);
+    for(int i = 0; i < 5; i ++) {
         printf("%d ", arr[i]);
     }
 }
