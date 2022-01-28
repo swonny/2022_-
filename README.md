@@ -269,6 +269,13 @@ get_postfix_result() 변경
     - 더이상 정렬할 숫자가 없을 때까지 반복하여 partition() 함수 호출
     - partition() 함수를 호출하여 축을 반환받고, 축을 기준으로 왼쪽과 오른쪽 영역으로 나눠 다시 partition() 함수 호출
 
-    - ? 가장 바깥 while문 종결조건
-      1. right - left >= 0 &&  stack이  비어있을 때
-    
+  [ 기능 구현 완료 알고리즘 _ 정렬 > quickSort.c ]
+  - partition() 함수
+    ( 재귀와 동일 )
+    - 인자로 배열, left, right를 넘겨줌
+    - 정렬된 Pivot의 위치 반환
+  
+  - recursive() 함수
+    1. 가장 바깥 while문은 더이상 stack에 남아있는 노드가 없고, 남은 숫자의 개수가 1개일 때 빠져나온다.
+    2. 첫 번째 if문은 내부 while문에서 왼쪽 영역에 대한 모든 숫자를 partition()함수를 통해 정렬한 뒤에 정렬해야하는 수가 한 개 남았을 때 빠져나온 이후에 들어가게 된다.
+    3. 2번이 수행된 이후 내부 while문에서 오른쪽 영역에 대해 push한 left와 right로 update하고 다시 내부 while문으로 들어가 partition함수를 통해 분할하며 2, 3번을 반복하여 수행한다.
