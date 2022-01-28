@@ -243,6 +243,32 @@ get_postfix_result() 변경
   - 현재
     - 수정 필요 부분 두번째 케이스를 제외한 나머지 경우 정렬 정상 작동
   [ 수정 필요 ]
-  - 🔴 recursive() 함수에서 left와 right를 update하지 않아도 정상적으로 돌아가는 이유
+  - 🔴 (해결)recursive() 함수에서 left와 right를 update하지 않아도 정상적으로 돌아가는 이유
+    ==> 함수 재귀호출 시 계속 returnq받은 pivot값을 이용하여 left와 right를 조정해주었기 때문!
   - 🔴 (해결) 제일 작은 수가 idx 0에 위치하거나 제일 큰 수가 가장 마지막에 위치하면 정상적으로 정렬되지 않음.
     ==> 숫자 2개만 비교할 때는 left < right 조건을 만족하지 못해서 right가 pivot이 있는 자리로 움직이지 않고 swap해버리니까 정렬이 잘못됐었음!
+
+# 22.01.28 (금)
+  ## 정렬 > quickSort.c
+  - 비재귀호출을 이용한 퀵정렬 구현
+  [ 알고리즘 ]
+  1. 배열 분할 (left와 right로 분할)
+  2. partition() 함수에서 return 받은 pivot을 기준으로 오른쪽 영역 (pivot+1 ~ right)은 push
+  3. return 받은 pivot을 기준으로 왼쪽 영역으로 left와 right 구분하여 다시 partition() 함수 호출
+  4. return 받은 pivot을 기준으로 오른쪽 push, 왼쪽 분할 반복 -> 비교할 숫자가 1개가 될 때까지
+
+  6. pop()
+  7. pop()한 결과인 left와 right로 partition 호출
+  8. partition() 함수에서 return 받은 pivot을 기준으로 오른쪽 영역 (pivot+1 ~ right)은 push
+  9. return 받은 pivot을 기준으로 왼쪽 영역으로 left와 right 구분하여 다시 partition() 함수 호출
+  10. return 받은 pivot을 기준으로 오른쪽 push, 왼쪽 분할 반복 -> 비교할 숫자가 1개가 될 때까지
+  
+  - partition() 함수
+    - 배열, left, right를 인자로 받아 정렬한 뒤 축을 반환
+  - recursive() 함수
+    - 더이상 정렬할 숫자가 없을 때까지 반복하여 partition() 함수 호출
+    - partition() 함수를 호출하여 축을 반환받고, 축을 기준으로 왼쪽과 오른쪽 영역으로 나눠 다시 partition() 함수 호출
+
+    - ? 가장 바깥 while문 종결조건
+      1. right - left >= 0 &&  stack이  비어있을 때
+    

@@ -26,7 +26,7 @@ int partition(int arr[], int left, int right)
             right --;
         }
         if(left < right) {
-            swap(arr, left++, right--); // 수정 필요
+            swap(arr, left++, right--);
         }
         for(int i = 0; i < 5; i ++) {
             printf("%d ", arr[i]);
@@ -42,22 +42,20 @@ int partition(int arr[], int left, int right)
     return right;
 }
 
+
 void recursive(int arr[], int left, int right)
 {
     printf("called recursive\n");
     if((right - left) > 0 ) {
         int pivot = partition(arr, left, right);
-        /* left와 right 갱신 필요 -->  */
         recursive(arr, left, pivot-1);
-        recursive(arr, pivot+1, right); // 수정 필요 - right를 어떤 걸로 잡을지
+        recursive(arr, pivot+1, right);
     }
 }
 
 int main() {
-    // int arr[] = {3,2,4,8,1,5,7};
     int arr[] = {0,3,2,4,5};
 
-    // partition(arr, 0, 4);
     recursive(arr, 0, 4);
     for(int i = 0; i < 5; i ++) {
         printf("%d ", arr[i]);
