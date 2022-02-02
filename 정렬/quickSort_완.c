@@ -54,13 +54,13 @@ int partition(int arr[], int left, int right)
         if(left < right) {
             swap(arr, left++, right--);
         }
-        for(int i = 0; i < 5; i ++) {
+        for(int i = 0; i < 8; i ++) {
             printf("%d ", arr[i]);
         }
         printf("\n");
     }
     swap(arr, right, pivot);
-    for(int i = 0; i < 5; i ++) {
+    for(int i = 0; i < 8; i ++) {
         printf("%d ", arr[i]);
     }
     printf("\n");
@@ -75,11 +75,13 @@ void recursive(int arr[], int l, int r)
     
     while(1) { // 더이상 비교할 숫자가 없을 때까지
         if(head->next != NULL) {
+            printf("first if\n");
             temp = pop();
             left = temp->left;
             right = temp->right;
         }
         while(right - left > 0) { // 맨 처음으로 분할한 왼쪽 영역을 모두 정렬할 때까지
+            printf("second while\n");
             pivot = partition(arr, left, right);
             newLeft = pivot + 1;
             newRight = right;
@@ -88,17 +90,20 @@ void recursive(int arr[], int l, int r)
             right = pivot - 1 ;
         }
         if (head->next == NULL) {
+            printf("second if\n");
             break;
         }
     }
 }
 
 int main() {
-    int arr[] = {2,3,1,5,4};
+    // int arr[] = {4,1,2,3,6,5,0,7};
+    int arr[] = {0,1,2,6,5,3,7};
+
     init_stack();
 
-    recursive(arr, 0, 4);
-    for(int i = 0; i < 5; i ++) {
+    recursive(arr, 0, 7);
+    for(int i = 0; i < 8; i ++) {
         printf("%d ", arr[i]);
     }
 }
