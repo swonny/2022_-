@@ -286,7 +286,9 @@ get_postfix_result() 변경
   - insert_node() : 노드 삽입
   - delete_node() : 노드 삭제
 
-  🔴 delete_node()
+  🔴 (해결) delete_node()
     - 루트노드만 삭제 -> 정상 작동
       루트노드 이외의 노드만 또는 루트노드 이외의 여러노드 삭제 -> 정상 작동
       루트노드 삭제 + 루트노드 이외의 노드 삭제 -> 수정 필요
+    
+    ==> temp->right->left != NULL일 때랑 temp->right->left == NULL일 때 자식노드 연결해주는 부분에서 잘못된 부분 수정

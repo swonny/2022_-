@@ -126,10 +126,10 @@ int main() {
     delete_node(2);
     delete_node(3);
     delete_node(4);
-    // delete_node(5);
-    // delete_node(1);
-    // delete_node(10);
-    // delete_node(11);
+    delete_node(5);
+    delete_node(1);
+    delete_node(10);
+    delete_node(11);
     // printf("%d\n", root->left->key);
     // printf("%d\n", root->left->left->key);
     // printf("%d\n", root->left->right->key);
