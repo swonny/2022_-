@@ -76,35 +76,29 @@ void delete_node(int key)
         } else {
             parent->right = NULL;
         }
-        free(temp);
     } else if(temp->left != NULL && temp->right == NULL) { // 오른쪽만 NULL 일 때
         parent->left = temp->left;
-        free(temp);
     } else if (temp->right != NULL && temp->left == NULL) { // 왼쪽만 NULL 일 때
         parent->right = temp->right;
-        free(temp);
     } else { // 둘 다 NULL이 아닐 때
         if(temp->right->left != NULL)  {
-            del = temp;
-            temp = temp->right;
-            while(temp->left !=  NULL) { // 오른쪽 자식의 왼쪽 자식 중 외부노드 찾기
-                temp = temp->left;
+            del = temp->right->left;
+            while(del->left !=  NULL) { // 오른쪽 자식의 왼쪽 자식 중 외부노드 찾기
+                del = del->left;
             }
-            printf("!!!! 왼쪽 외부노드 : %d\n", temp->key);
-            if(temp->right != NULL) {
-                del->left = temp->right;
-            }
-            if(parent == root || parent->key > temp->key) {
-                parent->left = temp;
+            temp->right->left = del->right;
+            del->left = temp->left;
+            del->right = temp->right;
+            if(parent == root || parent->key > del->key) {
+                parent->left = del;
             } else {
-                parent->right = temp;
+                parent->right = del;
             }
-            free(del);
         } else if(temp->right->left == NULL)  {
             parent->right = temp->right;
-            free(temp);
         }
     }
+    free(temp);
 }
 
 int print_tree(struct Node *temp)
@@ -128,10 +122,11 @@ int main() {
     insert_node(1);
     insert_node(10);
     insert_node(11);
+    insert_node(6);
 
-    delete_node(2);
-    // delete_node(3);
-    delete_node(4);
+    // delete_node(2);
+    delete_node(3);
+    // delete_node(4);
     // delete_node(5);
     // delete_node(1);
     // delete_node(10);
