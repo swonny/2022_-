@@ -80,6 +80,7 @@ int link_tree(char postfix[], int cnt)
     struct Node *current = root;
     int numChild = -1;
     for(int i = cnt-2; i >= 0; i --) {
+        printf("!!!! %c\n", postfix[i]);
         if((numChild = is_node_full(current)) == 2) {
             if((current = pop()) == NULL) {
                 return -1;
@@ -97,11 +98,10 @@ int link_tree(char postfix[], int cnt)
             if(numChild == 0) {
                 current->right = new;
                 push(current);
-                current = new;
             } else if(numChild == 1){
                 current->left = new;
-                current = new;
             }
+            current = new;
         }
     }
     return 1;
@@ -115,16 +115,38 @@ int print_tree(struct Node *node)
     printf("%c\n", node->key);
     print_tree(node->left);
     print_tree(node->right);
+    // printf("%c\n", node->key);
+    // printf("%c\n", node->left->key);
+    // printf("%c\n", node->right->left->key);
+    // printf("%c\n", node->right->left->left->key);
+    // printf("%c\n", node->right->left->right->key);
+    // printf("%c\n", node->right->right->key);
+    // printf("%c\n", node->right->right->left->key);
+    // printf("%c\n", node->right->right->right->key);
+
+    return 1;
+}
+
+int free_tree(struct Node *node)
+{
+    if(node == NULL) {
+        return 0;
+    }
+    free_tree(node->left);
+    free_tree(node->right);
+    free(node);
 
     return 1;
 }
 
 int main() {
-    char postfix[] = "12*78-+"; // 7개
+    char postfix[] = "312*78-+-"; // 7개
 
+    // free_tree(root);
     init_tree();
     init_stack();
 
     link_tree(postfix, sizeof(postfix)/sizeof(postfix[0]) - 1);
     print_tree(root);
+    // free_tree(root);
 }
