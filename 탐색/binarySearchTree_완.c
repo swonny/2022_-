@@ -68,7 +68,7 @@ void delete_node(int key)
         }
     }
 
-    /* Q. free를 해도 parent를 NULL로 초기화시켜야하는지 */
+    /* Q. free를 해도 연결해주는 노드를 NULL로 초기화시켜야하는지 */
     if(temp->left == NULL && temp->right == NULL) { // 외부노드일 때
         if(temp == parent->left) {
             parent->left = NULL;

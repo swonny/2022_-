@@ -2,46 +2,32 @@
 #include <stdlib.h>
 #define MAX 100
 
-struct Node {
+struct Node{
     int key;
     struct Node *left;
     struct Node *right;
 };
 
-struct Node *create_node(struct Node **node)
+int top = 0;
+
+struct Node stack[MAX];
+
+void init_stack(void)
 {
-    (*node) = malloc(sizeof(struct Node));
-    (*node)->left = NULL;
-    (*node)->right = NULL;
-    
-    return node;
+    struct Node *stack = malloc(sizeof(struct Node)*10);
 }
 
-int count_str(char postfix[])
+struct Node pop(void)
 {
-    int i;
-    for(i = 0; postfix[i] != '\0'; i ++) {
-    }
 
-    return i;
+    return stack[--top];
 }
 
-void tree_infix_calc(char postfix[], int count)
+void push(struct Node node)
 {
-    if(postfix[count+1] >= '0' && postfix[count+1] <= '9') { 
-        
-    }
+    stack[top++] = node;
 }
 
 int main() {
-    struct Node *root;
-    char postfix[MAX];
 
-    printf("후위표기법을 입력하세요 : ");
-    scanf("%s", postfix);
-
-    int count = count_str(postfix);
-
-    create_node(&root); // 트리 생성
-    tree_infix_calc(postfix, count);
 }
