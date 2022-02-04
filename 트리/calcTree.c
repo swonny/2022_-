@@ -115,14 +115,7 @@ int print_tree(struct Node *node)
     printf("%c\n", node->key);
     print_tree(node->left);
     print_tree(node->right);
-    // printf("%c\n", node->key);
-    // printf("%c\n", node->left->key);
-    // printf("%c\n", node->right->left->key);
-    // printf("%c\n", node->right->left->left->key);
-    // printf("%c\n", node->right->left->right->key);
-    // printf("%c\n", node->right->right->key);
-    // printf("%c\n", node->right->right->left->key);
-    // printf("%c\n", node->right->right->right->key);
+
 
     return 1;
 }
@@ -148,5 +141,5 @@ int main() {
 
     link_tree(postfix, sizeof(postfix)/sizeof(postfix[0]) - 1);
     print_tree(root);
-    // free_tree(root);
+    free_tree(root);
 }
