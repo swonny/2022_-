@@ -1,6 +1,5 @@
 /* 
     수식트리 - 비재귀
-    !!! 배열로 바꿔서 고쳐보기
  */
 
 #include <stdio.h>
@@ -56,6 +55,8 @@ void init_tree(void)
 struct Node *create_node(char key)
 {
     struct Node *new = malloc(sizeof(struct Node));
+    new->left = NULL;
+    new->right = NULL;
     new->key = key;
 
     return new;
@@ -80,7 +81,6 @@ int link_tree(char postfix[], int cnt)
     struct Node *current = root;
     int numChild = -1;
     for(int i = cnt-2; i >= 0; i --) {
-        printf("!!!! %c\n", postfix[i]);
         if((numChild = is_node_full(current)) == 2) {
             if((current = pop()) == NULL) {
                 return -1;
@@ -112,10 +112,8 @@ int print_tree(struct Node *node)
     if(node == NULL){
         return 0;
     }
-    printf("%c\n", node->key);
     print_tree(node->left);
     print_tree(node->right);
-
 
     return 1;
 }
@@ -132,14 +130,49 @@ int free_tree(struct Node *node)
     return 1;
 }
 
-int main() {
-    char postfix[] = "312*78-+-"; // 7개
+int calc_tree2(char operator)
+{
+    char temp;
+    switch(operator){
+        case '+':
+            return ((pop()->key)-'0') + ((pop()->key)-'0');
+        case '-':
+            temp = pop()->key;
+            return ((pop()->key)-'0') - (temp-'0');
+        case '*':
+            return ((pop()->key)-'0') * ((pop()->key)-'0');
+        case '/':
+            temp = (pop()->key);
+            return ((pop()->key)-'0') / (temp-'0');
+    }
+    return -1;
+}
 
-    // free_tree(root);
+char calc_tree(struct Node *node)
+{
+    if(node == NULL) { 
+        return -1;
+    }
+    calc_tree(node->left);
+    calc_tree(node->right);
+    if(node->key >= '0' && node->key <= '9') {
+        printf("node->key : %c\n", node->key);
+        push(node);
+    } else {
+        node->key = calc_tree2(node->key)+'0';
+        push(node);
+    }
+
+    return root->key;
+}
+
+int main() {
+    char postfix[] = "912*78-+-"; // 7개
     init_tree();
     init_stack();
 
     link_tree(postfix, sizeof(postfix)/sizeof(postfix[0]) - 1);
     print_tree(root);
-    free_tree(root);
+    char result = calc_tree(root);
+    printf("%d", result-'0');
 }
