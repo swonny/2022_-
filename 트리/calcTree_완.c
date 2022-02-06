@@ -110,6 +110,7 @@ int link_tree(char postfix[], int cnt)
 int print_tree(struct Node *node)
 {
     if(node == NULL){
+        printf("tessssssss\n");
         return 0;
     }
     print_tree(node->left);
@@ -156,7 +157,6 @@ char calc_tree(struct Node *node)
     calc_tree(node->left);
     calc_tree(node->right);
     if(node->key >= '0' && node->key <= '9') {
-        printf("node->key : %c\n", node->key);
         push(node);
     } else {
         node->key = calc_tree2(node->key)+'0';
