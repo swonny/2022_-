@@ -3,12 +3,11 @@
         {
             "type": "cppbuild",
             "label": "C/C++: clang 활성 파일 빌드",
-            "command": "/usr/bin/clang",
+            "command": "/usr/bin/clang++",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
-                // "${fileDirname}/*.c",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],
@@ -23,7 +22,7 @@
                 "isDefault": true
             },
             "detail": "디버거에서 생성된 작업입니다."
-        }
+        },
     ],
     "version": "2.0.0"
 }
