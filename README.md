@@ -396,10 +396,10 @@ void downheap(void)
     swap(front, rear);
     rear--;
     while(tempIdx <= rear/2) {
-        if(heap[tempIdx*2] < heap[tempIdx*2+1]) {
-            smaller = tempIdx*2;
+        if(tempIdx*2+1 <= rear) {
+            smaller = heap[tempIdx*2] | heap[tempIdx*2+1];
         } else {
-            smaller = tempIdx*2+1;
+            smaller = heap[tempIdx*2];
         }
         swap(tempIdx, smaller);
         tempIdx = smaller;
@@ -409,3 +409,31 @@ void downheap(void)
 ```
 
 ==> 내부노드일 때만 자식노드와 비교하면 된다. 따라서 내부노드일 때만 while문을 반복하게 하고, while문 내부에서도 오른쪽과 왼쪽 자식을 비교한다. 이때 내부노드이므로 왼쪽 자식은 무조건 존재하고, 오른쪽 자식이 존재하는지 확인하기 위한 조건문을 추가하였다.
+최종 개선 코드
+
+```
+void downheap(void)
+{
+    int tempIdx = front;
+    int smaller;
+    swap(front, rear);
+    rear--;
+    while(tempIdx <= rear/2) {
+        if(tempIdx*2+1 <= rear && heap[tempIdx*2+1] < heap[tempIdx*2]) {
+            smaller = tempIdx*2+1;
+        } else if(heap[tempIdx*2] < heap[tempIdx]){
+            smaller = tempIdx*2;
+        }
+        swap(tempIdx, smaller);
+        tempIdx = smaller;
+    }
+}
+```
+
+==>
+
+# 22.02.08
+
+## 힙 > heapWarr.c
+
+- downheap() 함수 구현 완료

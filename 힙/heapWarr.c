@@ -85,16 +85,10 @@ void downheap(void)
     swap(front, rear);
     rear--;
     while(tempIdx <= rear/2) {
-        // if (heap[tempIdx*2] > heap[tempIdx*2+1] && (tempIdx*2+1) <= rear) {
-        //     smaller = tempIdx*2+1;
-        // }
-        // else if(heap[tempIdx*2] < heap[tempIdx*2+1]) {
-        //     smaller = tempIdx*2;
-        // }
-        if(tempIdx*2+1 <= rear) {
-            smaller = heap[tempIdx*2] | heap[tempIdx*2+1];
-        } else {
-            smaller = heap[tempIdx*2];
+        if(tempIdx*2+1 <= rear && heap[tempIdx*2+1] < heap[tempIdx*2]) {
+            smaller = tempIdx*2+1;
+        } else if(heap[tempIdx*2] < heap[tempIdx]){
+            smaller = tempIdx*2;
         }
         swap(tempIdx, smaller);
         tempIdx = smaller;

@@ -1,12 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void test_const(void)
-{
-    const int i = 0;
-    
-}
 
 int main() {
-    
+    int a = 12;
+    int b = 10;
+    int smaller = b | a;
+    printf("%d", smaller);
 }
