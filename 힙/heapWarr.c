@@ -76,7 +76,6 @@ void downheap(void)
             tempIdx *= 2;         
         }
     }
-
 }
 
 void insert_node(int key)
