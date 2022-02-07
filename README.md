@@ -358,4 +358,54 @@ get_postfix_result() 변경 - top+1 추가 - 공백 푸시할 때 postfix 에 �
 ## 힙 > heapWarr.c
 
 - upheap(), downheap() 기능 구현 완성
-- 🔴 내부노드 개념 이용해서 수정해보기!
+
+- 🔴 (해결) 내부노드 개념 이용해서 수정해보기!
+
+기존 코드
+
+```
+void downheap(void)
+{
+    int tempIdx = front;
+    swap(front, rear);
+    rear--;
+    while(heap[tempIdx] > heap[tempIdx*2] || heap[tempIdx] > heap[tempIdx*2+1]){
+        if(tempIdx*2 > rear) { // 자식노드 인덱스가 개수보다 클 때
+            break;
+        }
+        if((tempIdx*2+1) <= rear && heap[tempIdx*2] > heap[tempIdx*2+1]) {
+            swap(tempIdx, tempIdx*2+1);
+            tempIdx = tempIdx*2+1;
+        } else {
+            swap(tempIdx, tempIdx*2);
+            tempIdx *= 2;
+        }
+    }
+}
+```
+
+=> 기존코드는 이용할 수 있는 트리의 특징을 고려하지 않고 구현했다. 따라서 조건분기문 코드가 복잡해짐!
+
+개선 코드
+
+```
+void downheap(void)
+{
+    int tempIdx = front;
+    int smaller;
+    swap(front, rear);
+    rear--;
+    while(tempIdx <= rear/2) {
+        if(heap[tempIdx*2] < heap[tempIdx*2+1]) {
+            smaller = tempIdx*2;
+        } else {
+            smaller = tempIdx*2+1;
+        }
+        swap(tempIdx, smaller);
+        tempIdx = smaller;
+    }
+}
+
+```
+
+==> 내부노드일 때만 자식노드와 비교하면 된다. 따라서 내부노드일 때만 while문을 반복하게 하고, while문 내부에서도 오른쪽과 왼쪽 자식을 비교한다. 이때 내부노드이므로 왼쪽 자식은 무조건 존재하고, 오른쪽 자식이 존재하는지 확인하기 위한 조건문을 추가하였다.
