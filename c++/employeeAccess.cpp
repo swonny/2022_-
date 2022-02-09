@@ -3,36 +3,44 @@
 using namespace std;
 
 class group_1  {
-    private:
-        int a;
-    protected:
-        int b;
     public:
-        void output1(void);
+        void find(void);
 };
 
 class group_2 {
-    private:
-        int c;
-    public:4
-        void output2(void);
+    public:
+        void add(void);
+        void modify(void);
+};
+
+class group_3:public group_2 {
+    public:
+        void remove(void);
 };
 
 group_1 everyone;
 group_2 select_few;
+group_3 health;
 
-void group_1::output(void)
+void group_1::find(void)
 {
-    c = 15;
-    b += 10;
-    cout << "c is" << c << " b is " << b << endl;
+    cout << "Inside group_1 find()" << endl;
 }
 
-void group_2::output2(void)
+void group_2::add(void)
 {
-
+    cout << "Inside group_2 add()" << endl;
 }
 
+void group_2::modify(void)
+{
+        cout << "Inside group_2 modify()" << endl;
+}
+
+void group_3::remove(void)
+{
+        cout << "Inside group_3 remove()" << endl;
+}
 
 int main() {
     char string[2], option = '\0';

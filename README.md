@@ -430,8 +430,6 @@ void downheap(void)
 }
 ```
 
-==>
-
 # 22.02.08
 
 ## 힙 > heapWarr.c

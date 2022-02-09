@@ -59,24 +59,6 @@ void upheap(int key)
     3. front*2+1보다 작은지 비교
     4. 둘 중 큰 것과 교환
 */
-// void downheap(void)
-// {
-//     int tempIdx = front;
-//     swap(front, rear);
-//     rear--;
-//     while(heap[tempIdx] > heap[tempIdx*2] || heap[tempIdx] > heap[tempIdx*2+1]){
-//         if(tempIdx*2 > rear) {
-//             break;
-//         }
-//         if((tempIdx*2+1) <= rear && heap[tempIdx*2] > heap[tempIdx*2+1]) {
-//             swap(tempIdx, tempIdx*2+1);
-//             tempIdx = tempIdx*2+1;
-//         } else {
-//             swap(tempIdx, tempIdx*2);
-//             tempIdx *= 2;         
-//         }
-//     }
-// }
 
 void downheap(void)
 {
@@ -94,23 +76,6 @@ void downheap(void)
         tempIdx = smaller;
     }
 }
-
-// void downheap(void)
-// {
-//     int tempIdx = front;
-//     int smaller;
-//     swap(front, rear);
-//     rear--;
-//     while(tempIdx <= rear/2) {
-//         if(heap[tempIdx*2] < heap[tempIdx*2+1]) {
-//             smaller = tempIdx*2;
-//         } else {
-//             smaller = tempIdx*2+1;
-//         }
-//         swap(tempIdx, smaller);
-//         tempIdx = smaller;
-//     }
-// }
 
 void insert_node(int key)
 {
