@@ -2,80 +2,62 @@
 
 using namespace std;
 
-class group_1  {
-    private:
-        int a;
-    protected:
-        int b;
+class Caribbean_Isles
+{
     public:
-        void output1(void);
+        virtual void other_attractions(void){
+            cout << "!! COME VISIT THE CARIBBEAN ISLANDS !! \n"
+                << "White sand beaches" << endl
+                << "Crystal clear water" << endl
+                << "No hassless - No worries\n\n";
+        }
 };
 
-class group_2 {
-    private:
-        int c;
-    public:4
-        void output2(void);
+class Bahamas : public Caribbean_Isles
+{
+    public:
+        void other_attractions(void)
+        {
+            cout << " !! BAHAMAS !!" << endl
+                << "Fun-filled casinos" << endl
+                << "Action-packed water sports" << endl
+                << "Great rum peaches\n\n";
+        }
 };
 
-group_1 everyone;
-group_2 select_few;
-
-void group_1::output(void)
+class Grand_Cayman : public Caribbean_Isles
 {
-    c = 15;
-    b += 10;
-    cout << "c is" << c << " b is " << b << endl;
-}
+    public:
+        void othre_attraction(void)
+        {
+            cout << "!! GRAND CAYMAN!! \n"
+                << "Incredible scuba diving \n"
+                << "Big time game fishing \n"
+                << "Duty free shopping\n\n";
+        }
+};
 
-void group_2::output2(void)
+class St_thomas : public Caribbean_Isles
 {
-
-}
-
+    public:
+        void other_attraction(void)
+        {
+            cout << "!! ST THOMAS !! \n"
+                << "Excellent shopping\n\n";
+        }
+};
 
 int main() {
-    char string[2], option = '\0';
-    int i, *intptr;
-    char  password[3], *charptr;
-    cout << "Please enter password" << endl;
-    charptr = gets(password);
-    while(option != 'q') {
-        cout << "Please enter option "
-            << "<a>dd, <f>ind, <m>odify, <d>elete or <q>uit : ";
-        cin >> option;
-        switch(option){
-            case 'a':
-                if(i == 10 || i == 20)  {
-                    select_few.add();
-                } else if(i == 99) {
-                    health.add();
-                } else {
-                    cout << "Permission denied" << endl;
-                }
-            case 'f':
-                everyone.find();
-                break;
-            case 'm':
-                if(i == 10 || i == 20) {
-                    select_few.modify();
-                } else if(i == 99) {
-                    health.modify();
-                } else {
-                    cout << "Permission denied!" << endl;
-                }
-                break;
-            case 'd':
-                if(i == 99) {
-                    health.remove();
-                } else {
-                    cout << "Permission denied!" << endl;
-                } 
-                break;
-            case 'q':
-                break;
-            default:
-                cout << "Invalid option entered!" << endl;
-        }
-    }
+    Caribbean_Isles islands, *ptr;
+    Bahamas package_1;
+    Grand_Cayman package_2;
+    St_thomas package_3;
+    ptr = &islands;
+    ptr->other_attractions();
+    ptr = &package_1;
+    ptr->other_attractions();
+    ptr = &package_2;
+    ptr->other_attractions();
+    ptr = &package_3;
+    ptr->other_attractions();
 }
