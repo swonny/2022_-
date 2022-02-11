@@ -13,9 +13,13 @@ class Parent{
 class Child : public Parent
 {
     public:
-        void output(void)
+        // void output(void)
+        // {
+        //     cout << "Inside Child" << endl;
+        // }
+        void output2(void)
         {
-            cout << "Inside Child" << endl;
+            cout << "Inside Child output2()" << endl;
         }
 };
 
