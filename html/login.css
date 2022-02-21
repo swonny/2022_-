@@ -1,0 +1,30 @@
+body {
+  background-color: bisque;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login {
+  /* border: black solid 1px; */
+  padding: 50px;
+  background-color: rgb(214, 214, 214);
+  box-shadow: 0px 0px 10px grey;
+  border-radius: 5px;
+}
+
+form {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+h2 {
+  margin: 0px;
+  text-align: center;
+}
+
+form > input {
+  margin: 3px 0px;
+  padding: 5px;
+}

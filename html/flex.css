@@ -1,0 +1,30 @@
+body {
+  margin: 10px 100px;
+}
+
+header,
+aside,
+article,
+footer {
+  border: solid 1px black;
+  padding: 10px;
+  margin: 10px 10px 10px 0px;
+}
+
+header {
+  height: 80px;
+}
+
+section {
+  display: flex;
+}
+
+aside {
+  width: 500px;
+}
+
+article {
+}
+
+footer {
+}
