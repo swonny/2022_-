@@ -20,6 +20,7 @@
     </main>
 
     <aside> 
+        <h3>참여자 목록</h3>
         <ul id="clients-list"></ul>
     </aside>
 
@@ -65,10 +66,25 @@
         // 방배정
         socket.on('connectToRoom', (socketRooms) => {
             console.log(socketRooms.message)
-            var li = document.createElement('li');
+            let li = document.createElement('li');
             li.textContent = socketRooms.message;
-            console.log(li.textContent);
+            console.log(socketRooms.id)
+            li.setAttribute('id', socketRooms.id);
             clientsList.appendChild(li);
+        })
+
+        socket.on('close', (socketId) => {
+            var clientsList = document.getElementById('clients-list');
+            var messages = clientsList.children;
+            console.log(messages);
+            for(let i = 0; i < messages.length; i ++) {
+                console.log(messages[i].getAttribute('id'));
+                if(messages[i].getAttribute('id') == socketId){
+                    clientsList.removeChild(clientsList.children[i]);
+                    break;
+                }
+            }
+            // var client = document.getElementById(socketId) 
         })
     </script>
 </body>
