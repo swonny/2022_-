@@ -5,24 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./css/index.css">
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Roomchat</h1>
-    </header>
-
-    <main>
-        <ul id="messages"></ul>
-        <form action="" id="form">
-            <input type="text" id="input">
-            <input type="submit" id="submit">
-        </form>
-    </main>
-
     <aside> 
         <h3>참여자 목록</h3>
         <ul id="clients-list"></ul>
     </aside>
+    <div class="body-container">
+        <header>
+            <h1>Welcome to My Roomchat</h1>
+        </header>
+    
+        <main>
+            <ul id="messages"></ul>
+            <form action="" id="form">
+                <input type="text" id="input">
+                <input type="submit" id="submit">
+            </form>
+        </main>
+    </div>
+
+
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
@@ -44,6 +48,7 @@
         const submit = document.getElementById('submit');
         const ul = document.getElementById('messages');
         const clientsList = document.getElementById('clients-list');
+        const header = document.querySelector('header' > 'h1');
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -58,14 +63,25 @@
         })
 
         socket.on('send msg', (msg) => {
+
+            var div = document.createElement('div');
             var li = document.createElement('li');
+            var span = document.createElement('div');
             li.textContent = msg.message;
-            ul.appendChild(li);
+            span.textContent = msg.name;
+            div.appendChild(span);
+            div.appendChild(li);
+            ul.appendChild(div);
+            if(msg.id == socket.id) {
+                li.setAttribute('class', 'my-chat');
+                span.setAttribute('class', 'my-name');
+            }
+
+            window.scrollTo(0, document.body.scrollHeight);
         })
 
         // 방배정
         socket.on('connectToRoom', (socketRooms) => {
-            console.log(socketRooms.message)
             let li = document.createElement('li');
             li.textContent = socketRooms.message;
             console.log(socketRooms.id)

@@ -1,0 +1,85 @@
+body{
+    display: flex;
+    /* justify-content: center; */
+    margin: 0px 300px;
+}
+
+main {
+    border: solid;
+    border-radius: 5px;
+    /* height: 100vh; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+aside  {
+    margin: 0px 40px 0px 0px;
+}
+
+form {
+    display: block;
+    padding: 12px;
+    position: fixed;
+    bottom: 5px;
+    background: white;
+    margin-top: 10px;
+}
+
+ul {
+    padding: 14px;
+    margin: 0px;
+}
+
+#messages {
+    margin-bottom: 100px;
+}
+
+li  {
+    list-style: none;
+    background-color: violet;
+    padding: 10px;
+    width: fit-content;
+    margin: 0px 0px 4px 0px;
+    border-radius: 5px;
+}
+
+.my-chat {
+    margin-left: auto;
+    background-color: rgb(152, 169, 243);
+}
+
+.my-name {
+    text-align: end;
+    background: none;
+    margin-right: 5px;
+}
+
+#input {
+    width: 250px;
+    padding: 10px;
+    border-radius: 5px;
+    /* position: fixed; */
+    bottom: 10px;
+    /* width: 100%; */
+    margin-right: 4px;
+}
+
+#submit {
+    border: none;
+    font-size: 15px;
+    background-color: blueviolet;
+    color: white;
+    padding: 11px 20px;
+    border-radius: 5px;
+    /* position: fixed; */
+    /* bottom: 10px; */
+    /* margin-left: 360px; */
+    align-items: fix-end;
+    /* width: 100%;
+}
