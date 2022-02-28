@@ -22,9 +22,6 @@ io.on('connection', (socket) => {
         socket.name = socketInfo.name;
         socket.room = socketInfo.roomNumber;
 
-        // console.log(io.of('/').adapter.rooms(1));
-        // console.log(socket)
-
         // 접속자 현황
         io.sockets.in(socketInfo.roomNumber).emit('connectToRoom', {
             message : socket.name + ' now in room ' + socketInfo.roomNumber,

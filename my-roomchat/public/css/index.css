@@ -12,6 +12,7 @@ main {
     flex-direction: column;
     justify-content: space-between;
     overflow: auto;
+    height: 70%;
 }
 
 h1 {
@@ -25,7 +26,7 @@ aside  {
 form {
     display: block;
     padding: 12px;
-    position: fixed;
+    /* position: fixed; */
     bottom: 5px;
     background: white;
     margin-top: 10px;
@@ -37,7 +38,7 @@ ul {
 }
 
 #messages {
-    margin-bottom: 100px;
+    /* margin-bottom: 40px; */
 }
 
 li  {

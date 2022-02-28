@@ -1,0 +1,19 @@
+ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 5px;
+}
+
+li {
+    border: solid;
+    list-style: none;
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin: 0px 3px;
+}
+
+body {
+    padding: 50px;
+}
