@@ -24,7 +24,7 @@ app.use(express.json());
 /* 회원가입 서버 */
 app.post('/signup', (req, res) => {
     const query = 'INSERT INTO clients (name, userPwd, userId) VALUES (?,?,?)'
-    client.query(query, [req.body.email, req.body.password, req.body.userName], 
+    client.query(query, [req.body.userName, req.body.password, req.body.email], 
         (err, result) => {
             if(err) {
                 console.log(err);

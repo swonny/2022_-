@@ -1,7 +1,7 @@
 body{
     display: flex;
     /* justify-content: center; */
-    margin: 0px 300px;
+    margin: 0px 440px;
 }
 
 main {
@@ -12,10 +12,19 @@ main {
     flex-direction: column;
     justify-content: space-between;
     overflow: auto;
-    height: 70%;
+    /* height: 70%; */
+    max-height: 500px;
 }
 
 h1 {
+    text-align: center;
+}
+
+h3 {
+    margin-top: 30px;
+}
+
+#userName {
     text-align: center;
 }
 
@@ -26,7 +35,7 @@ aside  {
 form {
     display: block;
     padding: 12px;
-    /* position: fixed; */
+    position: sticky;
     bottom: 5px;
     background: white;
     margin-top: 10px;
@@ -82,5 +91,20 @@ li  {
     /* bottom: 10px; */
     /* margin-left: 360px; */
     align-items: fix-end;
-    /* width: 100%;
+    /* width: 100%;*/
+}
+
+#clients-list {
+    background-color: white;
+}
+
+#clients-list > li {
+    background-color: lightgreen;
+}
+
+.roomInMsg {
+    width: 95%;
+    border-radius: 5px;
+    background-color: lightgrey;
+    text-align: center;
 }

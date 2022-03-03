@@ -64,31 +64,35 @@
                 li.setAttribute('class', 'my-chat');
                 span.setAttribute('class', 'my-name');
             }
+            messages.scrollTo(0, messages.scrollHeight);
         })
 
         // 방배정
         socket.on('connectToRoom', (socketRooms) => {
+            while(clientsList.hasChildNodes()) {
+                clientsList.removeChild(clientsList.firstChild);
+            }
             for(var name of socketRooms.roomInfo) {
                 let li = document.createElement('li');
                 li.textContent = name + '님';
-                li.setAttribute('id', socketRooms.id);
+                li.setAttribute('id', name);
                 clientsList.appendChild(li);
             }
             let li = document.createElement('li');
             li.textContent = socketRooms.message;
             console.log(socketRooms.id);
-            li.setAttribute('id', socketRooms.id);
-            clientsList.appendChild(li);
+            li.setAttribute('class', 'roomInMsg');
+            ul.appendChild(li);
             console.log(socketRooms.roomInfo);
         })
 
-        socket.on('close', (socketId) => {
+        socket.on('close', (socketName) => {
             var clientsList = document.getElementById('clients-list');
             var messages = clientsList.children;
             console.log(messages);
             for(let i = 0; i < messages.length; i ++) {
                 console.log(messages[i].getAttribute('id'));
-                if(messages[i].getAttribute('id') == socketId){
+                if(messages[i].getAttribute('id') == socketName){
                     clientsList.removeChild(clientsList.children[i]);
                     break;
                 }
