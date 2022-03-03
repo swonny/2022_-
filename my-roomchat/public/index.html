@@ -4,102 +4,58 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
     <link rel="stylesheet" href="./css/index.css">
+    <title>Document</title>
 </head>
 <body>
-    <aside> 
-        <h3>참여자 목록</h3>
-        <ul id="clients-list"></ul>
-    </aside>
-    <div class="body-container">
-        <header>
-            <h1>Welcome to My Roomchat</h1>
-        </header>
-    
-        <main>
-            <ul id="messages"></ul>
-            <form action="" id="form">
-                <input type="text" id="input">
-                <input type="submit" id="submit">
-            </form>
-        </main>
-    </div>
+    <form id="form" action="">
+        <input id="id" type="text" autocomplete="off">
+        <input id="pwd" type="password" autocomplete="off">
+        <input id="submit" type="submit">
 
-
+        <a href="signup.html">회원가입</a>
+    </form>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
+        const request = new XMLHttpRequest();
         const socket = io();
-        var conn = 0; // 접속 횟수
-
-        if(conn == 0) {
-            console.log(conn);
-            var room = prompt('입장할 방 번호를 입력하세요.');
-            var name = prompt('이름을 입력하세요.');
-            conn++;
-            socket.emit('makeRoom', {
-                roomNumber : room,
-                name : name
-            });
-        }
 
         const form = document.getElementById('form');
-        const submit = document.getElementById('submit');
-        const ul = document.getElementById('messages');
-        const clientsList = document.getElementById('clients-list');
-        const header = document.querySelector('header' > 'h1');
-
         form.addEventListener('submit', (e) => {
             e.preventDefault();
+            const id = document.getElementById('id');
+            const pwd = document.getElementById('pwd');
 
-            var msg = document.getElementById('input');
-            if(msg.value) {
-                socket.emit('send msg',{
-                    message : msg.value
-                });
-                msg.value = '';
+            if(!id.value || !pwd.value) {
+                alert('모든 항목을 입력해주세요.');
+                return;
             }
-        })
-
-        socket.on('send msg', (msg) => {
-
-            var div = document.createElement('div');
-            var li = document.createElement('li');
-            var span = document.createElement('div');
-            li.textContent = msg.message;
-            span.textContent = msg.name;
-            div.appendChild(span);
-            div.appendChild(li);
-            ul.appendChild(div);
-            if(msg.id == socket.id) {
-                li.setAttribute('class', 'my-chat');
-                span.setAttribute('class', 'my-name');
+            const id_value = id.value;
+            const pwd_value = pwd.value;
+            request.open('POST', '/login', true);
+            request.setRequestHeader('Content-type', 'application/json');
+            const data = {
+                userId : id_value,
+                userPwd : pwd_value
             }
-
-        })
-
-        // 방배정
-        socket.on('connectToRoom', (socketRooms) => {
-            let li = document.createElement('li');
-            li.textContent = socketRooms.message;
-            console.log(socketRooms.id)
-            li.setAttribute('id', socketRooms.id);
-            clientsList.appendChild(li);
-        })
-
-        socket.on('close', (socketId) => {
-            var clientsList = document.getElementById('clients-list');
-            var messages = clientsList.children;
-            console.log(messages);
-            for(let i = 0; i < messages.length; i ++) {
-                console.log(messages[i].getAttribute('id'));
-                if(messages[i].getAttribute('id') == socketId){
-                    clientsList.removeChild(clientsList.children[i]);
-                    break;
+            request.send(JSON.stringify(data));
+            request.onreadystatechange = (e) => {
+                if(request.readyState == 4) {
+                    if(request.status == 200) {
+                        console.log(request.responseText)
+                        if(request.responseText == 'false') {
+                            alert('잘못된 정보입니다.');
+                            return;
+                        } else {
+                            const name = request.responseText;
+                            location.href = '/home.html';
+                            return;
+                        }
+                    }
                 }
             }
-        }) 
+        })
     </script>
 </body>
 </html>

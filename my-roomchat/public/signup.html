@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/signup.css">
+</head>
+<body>
+    <form action="">
+        <input placeholder="아이디" id="id" type="text">
+        <input placeholder="비밀번호" id="pwd" type="password">
+        <input placeholder="이름" id="name" type="text">
+        <input id="submit" type="submit">
+    </form>
+    <a href="index.html">로그인 페이지</a>
+    <script>
+        const request = new XMLHttpRequest();
+        const submit = document.getElementById('submit');
+        submit.addEventListener('click', (e) => {
+            const id = document.getElementById('id');
+            const pwd = document.getElementById('pwd');
+            const name = document.getElementById('name');
+
+            const id_value = id.value;
+            const pwd_value = pwd.value;
+            const name_value = name.value;
+
+            if(!id_value || !pwd_value || !name_value) {
+                alert('모든 항목을 입력해주세요.');
+            }
+            e.preventDefault();
+            request.open('POST', '/signup', true);
+            request.setRequestHeader('Content-type', 'application/json');
+            const data = {
+                email : id_value,
+                password : pwd_value,
+                userName : name_value
+            }
+            request.send(JSON.stringify(data));
+            request.onreadystatechange = (e) => {
+                if(request.readyState == 4) {
+                    if(request.status == 200) {
+                        console.log(request.responseText);
+                        if(request.responseText == 'true'){
+                            id.value = '';
+                            pwd.value = '';
+                            name.value = '';
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
