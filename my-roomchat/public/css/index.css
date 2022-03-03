@@ -9,7 +9,24 @@ form {
     margin-top: 200px;
 }
 
+form > a {
+    color: black;
+    font-size: 13px;
+    text-align: end;
+    padding: 5px;
+}
+
 input {
     margin: 3px;
     width: 200px;
+    padding: 5px;
+    border-radius: 5px;
+    border: solid 1px;
+}
+
+#submit {
+    width: inherit;
+    background-color: rgb(152, 169, 243);
+    color: white;
+    border: none;
 }
