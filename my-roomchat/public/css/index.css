@@ -6,7 +6,15 @@ body {
 form {
     display: flex;
     flex-direction: column;
-    margin-top: 200px;
+    margin-top: 100px;
+    border: solid 2px;
+    padding: 60px 80px;
+    border-style: dashed;
+    border-radius: 10px;
+}
+
+form > h2 {
+    text-align: center;
 }
 
 form > a {
@@ -21,7 +29,7 @@ input {
     width: 200px;
     padding: 5px;
     border-radius: 5px;
-    border: solid 1px;
+    border: solid 1px lightgrey;
 }
 
 #submit {

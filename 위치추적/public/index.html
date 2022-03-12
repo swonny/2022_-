@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="name-input-container">
+        <header>
+            <h1>Location Tracker</h1>
+        </header>
+        <input id="name" type="text">
+        <!-- <a id="start-track" href="tracker.html">start track</a> -->
+        <button id="start-track">start track</button> 
+    </div>
+
+    <div id="location-tracker">
+        <header>
+            <h1>Location Tracker</h1>
+        </header>
+        <div id="content">
+            <ul id="listview">
+
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const request = new XMLHttpRequest();
+    const socket = io();
+
+    const startTrack = document.getElementById('start-track');
+    
+    startTrack.addEventListener('click', (e) => {
+        const name = document.getElementById('name');
+        if(!name.value) {
+            alert('이름을 입력해주세요.');
+            return;
+        }
+        const nameValue = name.value;
+        navigator.geolocation.watchPosition((position) => {
+            console.log(position);
+            const info = {
+                name : nameValue,
+                latitude : position.coords.latitude,
+                longitude : position.coords.longitude,
+            }
+            socket.emit('join', info);
+            name.value = '';
+            // request.open('POST', `/showdata`, true);
+            // request.setRequestHeader('Content-type', 'application/json');
+            // request.send(JSON.stringify(info));
+            // request.onreadystatechange = (e) => {
+            //     if(request.readyState == 4) {
+            //         if(request.status == 200) {
+            //             console.log('test');
+            //             name.value = '';
+            //             const socket = io(); // 소켓 서버 연결
+            //         }
+            //     }
+            // }
+        }, (err) => {
+            alert(err.message);
+        })
+    });
+
+    socket.on('receive', (data) => {
+        const ul = document.getElementById('listview');
+        const li = document.createElement('li');
+        li.innerText = 'latitude : ' + data.latitude + '\n' + 'longitude : ' + data.longitude + '\n' + 'now : ' + data.now;
+        ul.appendChild(li);
+    })
+</script>

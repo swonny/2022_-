@@ -1,10 +1,18 @@
-var express = require('express');
+const express = require('express')
+const http = require('http')
+const socketio = require('socket.io')
 
-var app = express();
-app.use(express.static('public'));
+const port = 52273
+const app = express()
+app.use(express.static('public'))
 
+const server = http.createServer(app)
+const io = socketio.Server(server)
 
+io.on('connection', () => {
+    console.log('a user connected')
+})
 
-app.listen(52273, function(request, response) {
-    console.log('Server running at http://127.0.0.1:52273')
+server.listen(port, () => {
+    console.log('Server Running at http://127.0.0.1:52273')
 })

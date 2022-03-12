@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <script>
+        var request = new XMLHttpRequest();
+
+        request.open('GET', '/products', true)
+        request.send();
+
+        var result = document.getElementById('result')
+        
+        /*request.onreadystatechange = (event) => {
+            if(request.readyState == 4) {
+                if(request.status == 200) {
+                    console.log('result\n' + request.responseText)
+                    result.innerHTML += '<h1> response : ' + request.responseText;
+                }
+            }
+        }*/
+
+        request.onreadystatechange = (event) => {
+            if(request.readyState == 4) {
+                if(request.status == 200) {
+                    // alert(request.responseText)
+                    var output = ''
+                    var json = JSON.parse(request.responseText);
+                    for(var i = 0; i < json.length; i ++) {
+                        for(var key in json[i]) {
+                            output += '<h1>' + i + ' : ' + json[i][key] + '</h1>'
+                        }
+                    }
+                    document.body.innerHTML += output
+                }
+            }
+        }
+
+        /*
+        request.onreadystatechange = (event) => {
+            if(request.readyState == 4) {
+                if(request.status == 200) {
+                    var json = JOSN.parse(request.responseText)
+
+                    var output = '';
+
+                    for(var i = 0; i < json.length; i ++) {
+                        for(var key in json[i]) {
+                            output += '<h1>' + i + ':' + json[i][key] + '</h1>'
+                        }
+                    }
+
+                    result.innerHTML += output;
+                }
+            }
+        }*/
+    </script>
+    <h2 id="result"></h2>
+</body>
+</html>

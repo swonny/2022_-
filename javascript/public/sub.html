@@ -5,9 +5,41 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
 </head>
 <body>
-    <h1>sub.html</h1>
-    <p>Intro this is sub page.</p>
+    <script>
+        var request = new XMLHttpRequest();
+
+        request.open('GET', '/data.html',  true);
+
+        request.send()
+
+        document.body.innerHTML += request.responseText;
+
+        request.onreadystatechange = function(event) {
+            if(request.readyState  == 4) {
+                if(request.status == 200)  {
+                    var json = eval('(' + request.responseText  + ')')
+                }
+            }
+        }
+
+        request.onreadystatechange = (event) => {
+            if(request.readState == 4) {
+                if(request.status == 200) {
+                    var json = eval('(' + request.responseText  + ')')
+                    var output = '';
+
+                    for(var i = 0; i < json.length; i ++) {
+                        for(var key in json[i]) {
+                            output += '<h1>' + i + ':' + json[i][key] + '</h1>'
+                        }
+                    }
+                    document.body.innerHTML += output;
+                }
+            }
+        }
+    </script>
 </body>
 </html>

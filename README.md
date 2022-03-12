@@ -435,3 +435,14 @@ void downheap(void)
 ## 힙 > heapWarr.c
 
 - downheap() 함수 구현 완료
+
+# 22.03.01
+
+## 영화예매
+
+- RowDataPacket
+
+# 22.03.02
+## my-roomchat
+  - 🔴(해결) db에서 찾는 정보가 없을 때도 true를 return함
+    ==> if(!result) 가 아니라 if(!result[0])으로 해야함!

@@ -3,24 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=bu, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
-    <form action="/products" method="get">
-        <fieldset>
-            <legend>GET</legend>
-            <input type="submit">
-        </fieldset>
-    </form>
-    <form action="/products" method="post">
-        <fieldset>
-            <legend>POST</legend>
-            <input name="name" type="text">
-            <input name="price" type="text">
-            <input type="submit">
-        </fieldset>
+    <button id="get">GET</button>
+    <button id="post">POST</button>
+    <button id="put">PUT</button>
+    <button id="delete">DETLET</button>
+
+    <h1>input</h1>
+    <input type="text" id="name">
+    <input type="text" id="modelnumber">
+    <input type="text" id="series">
+    <input type="text" id="id">
+    <h1>output</h1>
+    <textarea id="output" cols="30" rows="10" disabled="disabled"></textarea>
+
+    <script>
+        var request = new XMLHttpRequest();
+        document.getElementById('get').onclick = function() {
+            request.open('GET', '/products', true)
+            request.send()
+            request.onreadystatechange = (event) => {
+                if(request.readyState == 4) {
+                    if(request.status == 200) {
+                        document.getElementById('output').value = request.responseText
+                    }
+                }
+            }
+        }
+
+        document.getElementById('post').onclick = function() {
+            var name = document.getElementById('name').value
+            var modelnumber = document.getElementById('modelnumber').value
+            var series = document.getElementById('series').value
+
+            request.open('POST', '/products', true)
+            request.setRequestHeader('Content-type' , 'application/x-www-form-urlencoded')
+            request.send('name=' + name + '&modelnumber=' + modelnumber + '&series=' + series)
+            
+            request.onreadystatechange = (event) => {
+                
+                if(request.readyState == 4) {
+                    console.log('test');
+                    if(request.status == 200) {
+                        document.getElementById('output').value = request.responseText
+                    }
+                }
+            }
+        }
         
-    </form>
+        document.getElementById('put').onclick = () => {
+            var id = document.getElementById('id').value
+            var name = document.getElementById('name').value
+            var modelnumber = document.getElementById('modelnumber').value
+            var series = document.getElementById('series').value
+
+            request.open('PUT', `/products/${id}`, true)
+            request.setRequestHeader('Content-type' , 'application/x-www-form-urlencoded')
+            request.send('id=' + id +'&name=' + name + '&modelnumber=' + modelnumber + '&series=' + series)
+            request.onreadystatechange = (event) => {
+                if(request.readyState == 4) {
+                    if(request.status == 200) {
+                        document.getElementById('output').value = request.responseText
+                    }
+                }
+            }
+        }
+
+        document.getElementById('delete').onclick = () => {
+            var id = document.getElementById('name').value
+            request.open('DELETE', `/products/${id}`, true)
+            request.send();
+            request.onreadystatechange = (event) => {
+                if(request.readyState == 4) {
+                    if(request.status == 200) {
+                        document.getElementById('output').value =  request.responseText
+                    }
+                }
+            }
+        }
+    </script>
 </body>
 </html>

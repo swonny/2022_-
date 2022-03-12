@@ -97,7 +97,7 @@
                     break;
                 }
             }
-        }) 
+        })
 
         /* db에서 name 정보 전달 */
         window.onload = (e) => {
@@ -114,12 +114,10 @@
                         const userName = document.getElementById('userName');
                         userName.textContent = request.responseText + '님의 채팅방';
                         socket.emit('newPerson', request.responseText);
-
                     }
                 }
             }
         }
-
     </script>
 </body>
 </html>

@@ -98,7 +98,7 @@ io.on('connection', (socket) => {
             roomInfo : rooms[socket.room]
         });
     })
-
+    
     socket.on('disconnect', (reason) => {
         io.sockets.in(socket.room).emit('close', socket.name);
         if(rooms[socket.room]) {
@@ -120,5 +120,5 @@ io.on('connection', (socket) => {
 })
 
 server.listen( port,'210.119.31.35', () => {
-    console.log('Server running at http://127.0.0.1:52273')
+    console.log('Server running at 210.119.31.35:52273')
 })
